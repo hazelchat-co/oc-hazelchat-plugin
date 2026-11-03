@@ -1,0 +1,15 @@
+<?php
+    $hzModel = $formModel ?? ($model ?? null);
+    $hzKey = \Hazelchat\Agent\Classes\Key::fromInput($hzModel ? $hzModel->code : null);
+    $hzGdprWithoutCookie = $hzModel && $hzModel->consent
+        && class_exists(\OFFLINE\GDPR\Models\Cookie::class)
+        && \Hazelchat\Agent\Plugin::gdprConsent() === null;
+?>
+<?php if ($hzKey === null): ?>
+    <p class="help-block">
+        <a href="https://app.hazelchat.co/signup?utm_source=october&amp;utm_medium=plugin&amp;utm_campaign=settings" target="_blank" rel="noopener"><?= e(trans('hazelchat.agent::lang.settings.signup')) ?></a>
+    </p>
+<?php endif ?>
+<?php if ($hzGdprWithoutCookie): ?>
+    <p class="help-block"><?= e(trans('hazelchat.agent::lang.settings.gdpr_cookie')) ?></p>
+<?php endif ?>

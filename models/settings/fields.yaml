@@ -1,0 +1,15 @@
+fields:
+    code:
+        label: hazelchat.agent::lang.settings.code
+        comment: hazelchat.agent::lang.settings.code_comment
+        type: text
+        span: full
+    consent:
+        label: hazelchat.agent::lang.settings.consent
+        comment: hazelchat.agent::lang.settings.consent_comment
+        type: switch
+        span: full
+    _hints:
+        type: partial
+        path: $/hazelchat/agent/models/settings/_hints.htm
+        span: full
