@@ -17,7 +17,7 @@ Adds your [Hazelchat](https://hazelchat.co/?utm_source=october&utm_medium=plugin
 - Every page October renders gets one tag just before `</body>`:
   `<script src="https://app.hazelchat.co/widget.js" id="hazelchat-october" defer data-agent="<key>"></script>`
 - The installation code may be the pasted code or just its 64-character key. Only a valid key is saved; anything else, such as an API key, is refused. The script address is fixed and cannot be changed in the settings.
-- **Wait for my consent manager** (off) adds `data-require-consent="true"`: the chat starts only once your consent manager allows it. See [Visitor consent](https://hazelchat.co/integrations/october-cms/#consent).
+- **Wait for my consent manager** (off) adds `data-require-consent="true"`: the chat starts only once your consent manager allows it. The script file itself still loads straight away, except with OFFLINE.GDPR's Hazelchat cookie; see [Data and third parties](#data-and-third-parties) and [Visitor consent](https://hazelchat.co/integrations/october-cms/#consent).
 - The back end never loads the chat, and AJAX responses and pages without `</body>` stay as they are.
 - Only administrators with the **Change the Hazelchat settings** permission see the settings (super users have every permission).
 - Back-end texts in English and German.
@@ -34,6 +34,8 @@ Until that cookie exists, the settings page reminds you in one sentence, and the
 ## Data and third parties
 
 - Visitors' browsers load the chat from `app.hazelchat.co` (Hazelchat, Germany). Hazelchat processes the questions they type and, if they leave an enquiry, their name, email address and message ([privacy notice](https://hazelchat.co/privacy/), [terms](https://hazelchat.co/terms/)).
+- With **Wait for my consent manager** on, only the chat waits: browsers still download `widget.js` from `app.hazelchat.co` straight away, so the visitor's IP address reaches Hazelchat before they agree. This is by design. If your site must prevent that too, use OFFLINE.GDPR's Hazelchat cookie (above), which prints nothing until the visitor accepts, or a consent tool that can block the script itself.
+- The script tag carries the id `hazelchat-october`. When Hazelchat checks your website, it reads this id to record that the chat was installed with this plugin, and it counts the plugin's installations that way.
 - The chat sets no cookies. It keeps a reference to the conversation in session storage until the tab is closed (details on the [cookie banner page](https://hazelchat.co/integrations/cookie-banners/)).
 - The plugin itself makes no requests from October, adds no tables, routes or files, and stores only the key and the switch in October's settings table.
 
@@ -43,7 +45,7 @@ Empty the installation code in **Settings → Hazelchat**, or uninstall the plug
 
 ## Deutsch
 
-Hazelchat fügt Ihren KI-Chat-Agenten mit einem einzigen Installationscode in jede Seite Ihrer October-CMS-Site ein (October 3 und 4, jedes Theme). Installieren Sie das Plugin im Backend oder mit `php artisan plugin:install Hazelchat.Agent`, öffnen Sie **Einstellungen → Hazelchat**, fügen Sie den Code aus Hazelchat ein und speichern Sie. Die Browser Ihrer Besucher laden den Chat von `app.hazelchat.co`; deren Fragen und Anfragedaten verarbeitet Hazelchat. Sie brauchen ein Hazelchat-Konto; der Free-Tarif gilt für eine Website und bleibt kostenlos.
+Hazelchat fügt Ihren KI-Chat-Agenten mit einem einzigen Installationscode in jede Seite Ihrer October-CMS-Site ein (October 3 und 4, jedes Theme). Installieren Sie das Plugin im Backend oder mit `php artisan plugin:install Hazelchat.Agent`, öffnen Sie **Einstellungen → Hazelchat**, fügen Sie den Code aus Hazelchat ein und speichern Sie. Die Browser Ihrer Besucher laden den Chat von `app.hazelchat.co`; deren Fragen und Anfragedaten verarbeitet Hazelchat. Wartet der Chat auf Ihren Consent-Manager, lädt der Browser `widget.js` trotzdem sofort, und die IP-Adresse des Besuchers erreicht Hazelchat schon vor der Einwilligung; nur der Chat wartet. Mit dem Hazelchat-Cookie von OFFLINE.GDPR lädt vor der Zustimmung nichts. Über die ID `hazelchat-october` im Skript-Tag zählt Hazelchat die Installationen dieses Plugins. Sie brauchen ein Hazelchat-Konto; der Free-Tarif gilt für eine Website und bleibt kostenlos.
 
 ## Licence
 
